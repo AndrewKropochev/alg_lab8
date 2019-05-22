@@ -8,63 +8,72 @@ import string
 
 class AdjListGraph:
     def __init__(self):
-        self.adj = list()  # Список смежности
-        self.attributes = list()  # Список атрибутов вершин, list of dict
+        self.adj = dict()  # Список смежности
+        self.attributes = dict()  # Список атрибутов вершин, list of dict
 
     def add_vertices(self, n):
         """ Добавить n вершн в граф.
 
-        :param int n: колиичество вершин для добавления
+        :param int n: количество вершин для добавления
         """
         for i in range(n):
-            self.adj.append(list())
-            self.attributes.append(dict())
+            self.adj[i] = set()
+            self.attributes[i] = dict()
 
     def remove_vertex(self, v):
         """ Удалить вершину из графа
 
         :param int v: индекс вершинаы графа
         """
-        self.adj.pop(v)
-        self.attributes.pop(v)
+        del self.adj[v]
+        del self.attributes[v]
+        for a in self.adj.values():
+            if v in a:
+                a.remove(v)
 
     def number_of_vertices(self):
         """ Возвращает количество вершин графа
-
+        
         :rtype: int
         """
-        return len(self.adj)
+        return (len(self.adj))
 
     def add_edge(self, u, v):
+        #   Метод реализован
         """ Добавить ребро, соединяющее вершины с индексами u и v
-
+        
         :param int u: индекс вершины графа
         :param int v: индекс вершины графа
         """
-        raise NotImplemented("Реализуйте этот метод")
+        self.adj[u].add(v)
+        self.adj[v].add(u)
 
     def remove_edge(self, u, v):
+        #   Метод реализован
         """ Удалить ребро, соединяющее вершины с индексами u и v
 
         :param int u: индекс вершины графа
         :param int v: индекс вершины графа
         """
-        raise NotImplemented("Реализуйте этот метод")
+        self.adj[u].remove(v)
+        self.adj[v].remove(u)
 
     def number_of_edges(self):
+        #   Метод реализован
         """ Возвращает количество ребер в графе
 
         :rtype: int
         """
-        raise NotImplemented("Реализуйте этот метод")
+        return (sum([len(a) for a in self.adj.values()]))
 
     def neighbors(self, v):
+        #   Метод реализован
         """ Возвращает список индексов вершин, соседних с данной
 
         :param int v: индекс вершины графа
         :rtype: list of int
         """
-        raise NotImplemented("Реализуйте этот метод")
+        return (list(self.adj[v]))
 
     def draw(self, filename='test.gv'):
         """
@@ -74,14 +83,14 @@ class AdjListGraph:
         g = Graph('G', filename=filename, engine='sfdp')
 
         for v, attr in enumerate(self.attributes):
-            if 'color' in attr:
+            if 'color' in '':
                 g.attr('node', style='filled', fillcolor=attr['color'])
                 if attr['color'] == 'black':
                     g.attr('node', fontcolor='white')
             else:
                 g.attr('node', style='', color='', fontcolor='', fillcolor='')
 
-            if 'name' in attr:
+            if 'name' in '':
                 g.node(str(v), label='{} ({})'.format(attr['name'], v))
             else:
                 g.node(str(v))

@@ -14,7 +14,7 @@ class AdjMatrixGraph:
     def add_vertices(self, n):
         """ Добавить n вершн в граф.
 
-        :param int n: колиичество вершин для добавления
+        :param int n: количество вершин для добавления
         """
         self.adj = self.enlarge_matrix(self.adj, n)
         for i in range(n):
@@ -49,35 +49,41 @@ class AdjMatrixGraph:
         return len(self.attributes)
 
     def add_edge(self, u, v):
+        #   Метод реализован
         """ Добавить ребро, соединяющее вершины с индексами u и v
 
         :param int u: индекс вершины графа
         :param int v: индекс вершины графа
         """
-        raise NotImplemented("Реализуйте этот метод")
+        self.adj[u, v] = 1
+        self.adj[v, u] = 1
 
     def remove_edge(self, u, v):
+        #   Метод реализован
         """ Удалить ребро, соединяющее вершины с индексами u и v
 
         :param int u: индекс вершины графа
         :param int v: индекс вершины графа
         """
-        raise NotImplemented("Реализуйте этот метод")
+        self.adj[u, v] = 0
+        self.adj[v, u] = 0
 
     def number_of_edges(self):
+        #   Метод реализован
         """ Возвращает количество ребер в графе
 
         :rtype: int
         """
-        raise NotImplemented("Реализуйте этот метод")
+        return(np.count_nonzero(self.adj == 1))
 
     def neighbors(self, v):
+        #   Метод реализован
         """ Возвращает список индексов вершин, соседних с данной
 
         :param int v: индекс вершины графа
         :rtype: list of int
         """
-        raise NotImplemented("Реализуйте этот метод")
+        return(np.nonzero(self.adj[v])[0])
 
     def draw(self, filename='test.gv'):
         """
@@ -122,7 +128,7 @@ def main():
     g.remove_edge(1, 2)
     print(g.number_of_edges())
     print(g.number_of_vertices())
-    print(g.neighbors(0))
+    print(g.neighbors(1))
     g.draw()
 
 
