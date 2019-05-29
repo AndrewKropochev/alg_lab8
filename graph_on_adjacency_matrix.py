@@ -56,7 +56,7 @@ class AdjMatrixGraph:
         :param int v: индекс вершины графа
         """
         self.adj[u, v] = 1
-        self.adj[v, u] = 1
+#        self.adj[v, u] = 1
 
     def remove_edge(self, u, v):
         #   Метод реализован
@@ -66,7 +66,7 @@ class AdjMatrixGraph:
         :param int v: индекс вершины графа
         """
         self.adj[u, v] = 0
-        self.adj[v, u] = 0
+#        self.adj[v, u] = 0
 
     def number_of_edges(self):
         #   Метод реализован
@@ -84,6 +84,9 @@ class AdjMatrixGraph:
         :rtype: list of int
         """
         return(np.nonzero(self.adj[v])[0])
+
+    def transposition(self):
+        self.adj = self.adj.transpose()
 
     def draw(self, filename='test.gv'):
         """
