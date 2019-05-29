@@ -46,7 +46,7 @@ class AdjListGraph:
         :param int v: индекс вершины графа
         """
         self.adj[u].add(v)
-        self.adj[v].add(u)
+#        self.adj[v].add(u)
 
     def remove_edge(self, u, v):
         #   Метод реализован
@@ -56,7 +56,7 @@ class AdjListGraph:
         :param int v: индекс вершины графа
         """
         self.adj[u].remove(v)
-        self.adj[v].remove(u)
+#        self.adj[v].remove(u)
 
     def number_of_edges(self):
         #   Метод реализован
@@ -74,6 +74,13 @@ class AdjListGraph:
         :rtype: list of int
         """
         return (list(self.adj[v]))
+    
+    def transposition(self):
+        for i in range(0,len(self.adj)):
+            for j in range(i,len(self.adj)):
+                if i not in self.adj[j]:
+                    self.adj[j].add(i)
+                    self.adj[i].remove(j)
 
     def draw(self, filename='test.gv'):
         """
